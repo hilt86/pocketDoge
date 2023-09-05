@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pocketDoge</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+        window.onload = function() {
+            // Generate QR codes for each address
+            var addresses = document.querySelectorAll('.address');
+            addresses.forEach(function(addressElement) {
+                var address = addressElement.textContent;
+                var qrElement = addressElement.nextElementSibling;
+		new QRCode(qrElement, {
+		    text: address,
+		    width: 128,  // Smaller dimensions
+		    height: 128  // Smaller dimensions
+		});
+            });
+
+            // Sort rows by balance
+            var rows = Array.from(document.querySelectorAll('tbody tr'));
+            rows.sort(function(a, b) {
+                var balanceA = parseFloat(a.querySelector('.balance').textContent);
+                var balanceB = parseFloat(b.querySelector('.balance').textContent);
+                return balanceB - balanceA;
+            });
+            var tbody = document.querySelector('tbody');
+            rows.forEach(function(row) {
+                tbody.appendChild(row);
+            });
+        };
+    </script>
+</head>
+<body>
+    <h1>pocketDoge</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>QR Code</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for name, info in balances.items() %}
+            <tr>
+                <td>{{ name }}</td>
+                <td class="address">{{ info['address'] }}</td>
+                <td class="qrcode"></td>
+                <td class="balance">{{ info['balance'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
