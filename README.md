@@ -11,4 +11,4 @@
 - `docker run -p 5000:5000 pocketDoge` 
 - Transfer some Doge to your mobile crypto app and you can simply scan the QR code to tranfer money to their accounts
 
-Note : do this at your own risk, etc
+Note : do this at your own risk, etc. This was a pair programming project with chatgpt.
